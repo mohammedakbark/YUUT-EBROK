@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:yuutebrok/Const/colors.dart';
@@ -5,8 +6,13 @@ import 'package:yuutebrok/View%20Model/controller.dart';
 import 'package:yuutebrok/View/Mobil%20View/Pages/home_page.dart';
 import 'package:yuutebrok/View/splash_screen.dart';
 import 'package:yuutebrok/Const/const.dart';
+import 'package:yuutebrok/firebase_options.dart';
 
-void main() {
+void main()async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+);
   runApp(const MyApp());
 }
 

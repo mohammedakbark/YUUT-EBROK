@@ -3,7 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:yuutebrok/Const/colors.dart';
 
 var logoText = Text(
-  "YUUT EBROOK",
+  "YUUT EBROK",
   style: GoogleFonts.nanumMyeongjo(
       color: white, fontWeight: FontWeight.w800, letterSpacing: 1),
 );
