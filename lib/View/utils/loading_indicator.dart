@@ -29,6 +29,7 @@ class _LoadingAnimatedLogoState extends State<LoadingAnimatedLogo>
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
+        surfaceTintColor: Colors.transparent,
         backgroundColor: Colors.transparent,
         content: Stack(
           alignment: Alignment.center,
@@ -53,10 +54,8 @@ class _LoadingAnimatedLogoState extends State<LoadingAnimatedLogo>
     super.dispose();
   }
 }
-showLoadingIndiactor(context){
-  return  showDialog(
-                            context: context,
-                            builder: (context) => 
-                            const LoadingAnimatedLogo()
-                          );
+
+showLoadingIndiactor(context) {
+  return showDialog(
+      context: context, builder: (context) => const LoadingAnimatedLogo());
 }
