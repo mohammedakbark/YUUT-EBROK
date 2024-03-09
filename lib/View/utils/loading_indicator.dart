@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:yuutebrok/Const/media.dart';
 
 class LoadingAnimatedLogo extends StatefulWidget {
   const LoadingAnimatedLogo({super.key});
@@ -38,7 +39,7 @@ class _LoadingAnimatedLogoState extends State<LoadingAnimatedLogo>
               "assets/loading.json",
             ),
             Image.asset(
-              "assets/logo.png",
+              logo,
               scale: 50,
               opacity: _animation,
             )

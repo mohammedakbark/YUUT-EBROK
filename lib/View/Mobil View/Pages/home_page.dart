@@ -9,6 +9,7 @@ import 'package:yuutebrok/Const/colors.dart';
 import 'package:yuutebrok/Const/const.dart';
 import 'package:yuutebrok/Const/media.dart';
 import 'package:yuutebrok/View%20Model/controller.dart';
+import 'package:yuutebrok/View/Mobil%20View/Pages/viewproducts_page.dart';
 import 'package:yuutebrok/View/utils/loading_indicator.dart';
 import 'package:yuutebrok/View/utils/appbar_home.dart';
 import 'package:yuutebrok/View/utils/drawer.dart';
@@ -54,9 +55,16 @@ class MobileHomePage extends StatelessWidget {
                     width: 100,
                     child: OutlinedButton(
                         style: OutlinedButton.styleFrom(
-                            side: BorderSide(color: white)),
+                            shape: BeveledRectangleBorder(),
+                            side: BorderSide(
+                              width: .5,
+                              color: white,
+                            )),
                         onPressed: () {
-                          showLoadingIndiactor(context);
+                          Navigator.of(context).pushAndRemoveUntil(
+                              createRoute(const ProductViewPageMobile()),
+                              (route) => false);
+                          // showLoadingIndiactor(context);
                         },
                         child: Text(
                           "SHOP",

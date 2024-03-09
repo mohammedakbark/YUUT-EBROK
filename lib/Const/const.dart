@@ -21,7 +21,7 @@ Route createRoute(page) {
   );
 }
 
-TextStyle appTextstyle({double? size, FontWeight? fontWeight, letterSpacing}) {
+TextStyle appTextstyle({double? size, FontWeight? fontWeight,double? letterSpacing}) {
   return GoogleFonts.anekBangla(
       color: white,
       fontWeight: fontWeight,

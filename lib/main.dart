@@ -4,15 +4,16 @@ import 'package:provider/provider.dart';
 import 'package:yuutebrok/Const/colors.dart';
 import 'package:yuutebrok/View%20Model/controller.dart';
 import 'package:yuutebrok/View/Mobil%20View/Pages/home_page.dart';
+import 'package:yuutebrok/View/Mobil%20View/Pages/viewproducts_page.dart';
 import 'package:yuutebrok/View/splash_screen.dart';
 import 'package:yuutebrok/Const/const.dart';
 import 'package:yuutebrok/firebase_options.dart';
 
-void main()async {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
-);
+  );
   runApp(const MyApp());
 }
 
@@ -38,7 +39,7 @@ class MyApp extends StatelessWidget {
           appBarTheme: AppBarTheme(backgroundColor: black),
           scaffoldBackgroundColor: black,
           // colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-          useMaterial3: false,
+          useMaterial3: true,
         ),
         home: SpalshScreen(),
       ),

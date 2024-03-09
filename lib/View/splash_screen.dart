@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:yuutebrok/Const/media.dart';
 import 'package:yuutebrok/View/Mobil%20View/Pages/home_page.dart';
 import 'package:yuutebrok/Const/const.dart';
 
@@ -37,7 +38,7 @@ class _SpalshScreenState extends State<SpalshScreen>
       body: Center(
         child: ScaleTransition(
           scale: _animation,
-          child: Image.asset("assets/logo.png"),
+          child: Image.asset(logo),
         ),
       ),
     );
