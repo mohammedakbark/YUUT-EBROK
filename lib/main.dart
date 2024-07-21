@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:yuutebrok/Const/colors.dart';
 import 'package:yuutebrok/View%20Model/controller.dart';
 import 'package:yuutebrok/View/Mobil%20View/Pages/home_page.dart';
+import 'package:yuutebrok/View/Mobil%20View/Pages/view_single_product_detail.dart';
 import 'package:yuutebrok/View/Mobil%20View/Pages/viewproducts_page.dart';
 import 'package:yuutebrok/View/splash_screen.dart';
 import 'package:yuutebrok/Const/const.dart';
@@ -41,7 +42,7 @@ class MyApp extends StatelessWidget {
           // colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
         ),
-        home: SpalshScreen(),
+        home: ProductViewPageMobile(),
       ),
     );
   }

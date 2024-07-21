@@ -8,6 +8,7 @@ import 'package:video_player/video_player.dart';
 import 'package:yuutebrok/Const/colors.dart';
 import 'package:yuutebrok/Const/const.dart';
 import 'package:yuutebrok/Const/media.dart';
+import 'package:yuutebrok/Const/style.dart';
 import 'package:yuutebrok/View%20Model/controller.dart';
 import 'package:yuutebrok/View/Mobil%20View/Pages/viewproducts_page.dart';
 import 'package:yuutebrok/View/utils/loading_indicator.dart';
@@ -23,7 +24,7 @@ class MobileHomePage extends StatelessWidget {
     final width = MediaQuery.of(context).size.width;
     final cVP = Provider.of<ControllerVideoPlayer>(context, listen: false);
     return Scaffold(
-      appBar: homeAppBar,
+      appBar: homeAppBar(context),
       drawer: myDrawer,
       extendBodyBehindAppBar: true,
       body: Center(
