@@ -2,9 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:provider/provider.dart';
 import 'package:yuutebrok/Const/colors.dart';
 import 'package:yuutebrok/Const/const.dart';
 import 'package:yuutebrok/Const/style.dart';
+import 'package:yuutebrok/Model/cart_model.dart';
+import 'package:yuutebrok/Model/product_model.dart';
+import 'package:yuutebrok/View/Mobil%20View/Pages/auth/login_screen.dart';
+import 'package:yuutebrok/View/Mobil%20View/Pages/cart_page.dart';
 import 'package:yuutebrok/View/utils/appbar_home.dart';
 import 'package:yuutebrok/View/widgets/app_bottom.dart';
 import 'package:yuutebrok/View/widgets/custome_button.dart';
@@ -12,9 +17,13 @@ import 'package:yuutebrok/View/widgets/custome_ex_tile.dart';
 import 'package:yuutebrok/View/widgets/custome_margine.dart';
 import 'package:yuutebrok/View/widgets/custome_spacer.dart';
 import 'package:yuutebrok/View/widgets/image_slide.dart';
+import 'package:yuutebrok/controller/auth/authentication.dart';
+import 'package:yuutebrok/controller/data/hive_database.dart';
+import 'package:yuutebrok/helper/snackbar.dart';
 
 class ViewSingleProductPage extends StatelessWidget {
-  const ViewSingleProductPage({super.key});
+  ProductModel productModel;
+  ViewSingleProductPage({super.key, required this.productModel});
 
   @override
   Widget build(BuildContext context) {
@@ -25,16 +34,18 @@ class ViewSingleProductPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SlideProductImage(imageLength: 3),
+              SlideProductImage(
+                images: productModel.image,
+              ),
               CusstomeSpacer(
                 size: .02,
               ),
               Text(
-                "Product Name",
+                productModel.name.toUpperCase(),
                 style: appTextstyle(size: 22, fontWeight: FontWeight.bold),
               ),
               Text(
-                "₹ 100.00",
+                "₹ ${productModel.prize.toDouble()}",
                 style: appTextstyle(size: 18),
               ),
               CusstomeSpacer(
@@ -49,7 +60,14 @@ class ViewSingleProductPage extends StatelessWidget {
               CustomeButton(
                 title: 'Add to cart',
                 bgColor: black,
-                onPressed: () {},
+                onPressed: () {
+                  showSuccessMessage('Product added to cart');
+                  Provider.of<HiveDatabase>(context, listen: false).addToCart(
+                      CartModel(
+                          cartId: productModel.productId!,
+                          productId: productModel.productId!,
+                          quantity: 1.0));
+                },
                 textColor: white,
               ),
               CusstomeSpacer(
@@ -58,7 +76,14 @@ class ViewSingleProductPage extends StatelessWidget {
               CustomeButton(
                 title: 'Buy it now',
                 bgColor: white,
-                onPressed: () {},
+                onPressed: () {
+                  if (AuthenticationController()
+                      .checkUserAuthenticationStatus()) {
+                    Navigator.of(context).push(createRoute(CartPage()));
+                  } else {
+                    Navigator.of(context).push(createRoute(LoginScreen()));
+                  }
+                },
                 textColor: black,
               ),
               CusstomeSpacer(
@@ -67,21 +92,21 @@ class ViewSingleProductPage extends StatelessWidget {
               CustomeExpantionTile(
                 title: 'PRODUCT DETAILS',
                 child: Text(
-                  'product Description product Description product Description product Description product Description product Description product Description product Description product Description product Description product Description product Description ',
+                  productModel.productDetails,
                   style: appTextstyle(size: 16),
                 ),
               ),
               CustomeExpantionTile(
                 title: 'PRODUCT DIMENSIONS',
                 child: Text(
-                  'product Description product Description product Description product Description product Description product Description product Description product Description product Description product Description product Description product Description ',
+                  productModel.productDimensions,
                   style: appTextstyle(size: 16),
                 ),
               ),
               CustomeExpantionTile(
                 title: 'DELIVERY & RETURN',
                 child: Text(
-                  'product Description product Description product Description product Description product Description product Description product Description product Description product Description product Description product Description product Description ',
+                  productModel.deliveryAndRetturn,
                   style: appTextstyle(size: 16),
                 ),
               ),

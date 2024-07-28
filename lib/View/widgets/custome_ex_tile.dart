@@ -18,6 +18,7 @@ class CustomeExpantionTile extends StatelessWidget {
       iconColor: white,
       title: Text(title,
           style: appTextstyle(size: 20, fontWeight: FontWeight.bold)),
+      expandedAlignment: Alignment.topLeft,
       children: [
         Padding(
           padding: const EdgeInsets.only(left: 20),
