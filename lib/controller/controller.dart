@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 import 'package:yuutebrok/Const/media.dart';
@@ -6,7 +5,7 @@ import 'package:yuutebrok/Const/media.dart';
 class ControllerVideoPlayer with ChangeNotifier {
   late VideoPlayerController videoPlayerController;
 
-  Future initializeController() async {
+  initializeController() async {
     videoPlayerController = VideoPlayerController.asset(homeVideoasset,
         videoPlayerOptions: VideoPlayerOptions())
       ..initialize().then((value) {
@@ -17,8 +16,9 @@ class ControllerVideoPlayer with ChangeNotifier {
       });
   }
 
-  disposeController() {
-    videoPlayerController.dispose();
+  Future<void> disposeController() async {
+    await videoPlayerController.dispose();
+    print('-----video disposed');
   }
 
   //----------------------------animation controller

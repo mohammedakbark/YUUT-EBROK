@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:provider/provider.dart';
 import 'package:yuutebrok/Const/colors.dart';
 import 'package:yuutebrok/Const/const.dart';
 import 'package:yuutebrok/Const/media.dart';
@@ -16,6 +17,7 @@ import 'package:yuutebrok/View/widgets/app_bottom.dart';
 import 'package:yuutebrok/View/widgets/custome_margine.dart';
 import 'package:yuutebrok/View/widgets/custome_spacer.dart';
 import 'package:yuutebrok/controller/data/database.dart';
+import 'package:yuutebrok/controller/data/hive_database.dart';
 
 class ProductViewPageMobile extends StatelessWidget {
   const ProductViewPageMobile({super.key});
@@ -35,12 +37,6 @@ class ProductViewPageMobile extends StatelessWidget {
                   contentPadding:
                       const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                   hintText: "SEARCH",
-
-                  // suffixIconConstraints: BoxConstraints(),
-                  // suffixIcon: ImageIcon(
-                  //   searchImage,
-                  //   color: white,
-                  // ),
                   hintStyle: appTextstyle(letterSpacing: 1.0),
                   focusedBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: white, width: 1)),
@@ -51,13 +47,13 @@ class ProductViewPageMobile extends StatelessWidget {
               size: .01,
             ),
             StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-                stream: FirebaseData().getAllProduct(),
+                stream: FirebaseData().getAllProduct(context),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return LoadingAnimatedLogo();
+                    return const LoadingAnimatedLogo();
                   }
                   if (!snapshot.hasData) {
-                    return SizedBox();
+                    return const SizedBox();
                   }
 
                   final List<ProductModel> listOfProduct = snapshot.data!.docs

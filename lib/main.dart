@@ -4,6 +4,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:yuutebrok/Const/colors.dart';
 import 'package:yuutebrok/Model/cart_model.dart';
+import 'package:yuutebrok/View/Mobil%20View/Pages/home_page.dart';
 import 'package:yuutebrok/controller/controller.dart';
 import 'package:yuutebrok/View/Mobil%20View/Pages/viewproducts_page.dart';
 import 'package:yuutebrok/controller/data/hive_database.dart';
@@ -46,7 +47,7 @@ class MyApp extends StatelessWidget {
           // colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
         ),
-        home: ProductViewPageMobile(),
+        home: MobileHomePage(),
       ),
     );
   }

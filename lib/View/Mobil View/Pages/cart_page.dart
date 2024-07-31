@@ -13,11 +13,13 @@ import 'package:yuutebrok/Const/style.dart';
 import 'package:yuutebrok/Model/cart_model.dart';
 import 'package:yuutebrok/Model/product_model.dart';
 import 'package:yuutebrok/View/Mobil%20View/Pages/auth/login_screen.dart';
+import 'package:yuutebrok/View/Mobil%20View/Pages/checkout_page.dart';
 import 'package:yuutebrok/View/utils/appbar_home.dart';
 import 'package:yuutebrok/View/utils/loading_indicator.dart';
 import 'package:yuutebrok/View/widgets/app_bottom.dart';
 import 'package:yuutebrok/View/widgets/custome_button.dart';
 import 'package:yuutebrok/View/widgets/custome_margine.dart';
+import 'package:yuutebrok/controller/auth/authentication.dart';
 import 'package:yuutebrok/controller/data/database.dart';
 import 'package:yuutebrok/controller/data/hive_database.dart';
 
@@ -142,7 +144,13 @@ class CartPage extends StatelessWidget {
                                                             children: [
                                                               IconButton(
                                                                   onPressed:
-                                                                      () {},
+                                                                      () async {
+                                                                    await hiveController.editQuantity(
+                                                                        hiveController
+                                                                            .cartList[index]
+                                                                            .cartId,
+                                                                        false);
+                                                                  },
                                                                   icon: Icon(
                                                                     CupertinoIcons
                                                                         .minus,
@@ -150,7 +158,12 @@ class CartPage extends StatelessWidget {
                                                                     color: grey,
                                                                   )),
                                                               Text(
-                                                                '1',
+                                                                hiveController
+                                                                    .cartList[
+                                                                        index]
+                                                                    .quantity
+                                                                    .toInt()
+                                                                    .toString(),
                                                                 style:
                                                                     appTextstyle(
                                                                         size:
@@ -158,7 +171,13 @@ class CartPage extends StatelessWidget {
                                                               ),
                                                               IconButton(
                                                                   onPressed:
-                                                                      () async {},
+                                                                      () async {
+                                                                    await hiveController.editQuantity(
+                                                                        hiveController
+                                                                            .cartList[index]
+                                                                            .cartId,
+                                                                        true);
+                                                                  },
                                                                   icon: Icon(
                                                                     size: 12,
                                                                     CupertinoIcons
@@ -204,7 +223,7 @@ class CartPage extends StatelessWidget {
                                       ),
                                       // Spacer(),
                                       Text(
-                                        "₹ 1980.00",
+                                        "₹ ${hiveController.tottalAmount}",
                                         style: appTextstyle(),
                                       )
                                     ],
@@ -212,10 +231,14 @@ class CartPage extends StatelessWidget {
                                   CustomeButton(
                                     bgColor: white,
                                     onPressed: () {
-                                      if (1 == 1) {
+                                      if (AuthenticationController()
+                                          .checkUserAuthenticationStatus()) {
                                         Navigator.of(context)
-                                            .push(createRoute(LoginScreen()));
-                                      } else {}
+                                            .push(createRoute(CheckoutPage()));
+                                      } else {
+                                        Navigator.of(context)
+                                            .push(createRoute(CartPage()));
+                                      }
                                     },
                                     title: 'CONTINUE',
                                     textColor: black,

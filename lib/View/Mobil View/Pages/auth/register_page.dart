@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:yuutebrok/Const/colors.dart';
 import 'package:yuutebrok/Const/const.dart';
+import 'package:yuutebrok/Model/user_model.dart';
 
 import 'package:yuutebrok/View/Mobil%20View/Pages/auth/widget/custom_textfield.dart';
 import 'package:yuutebrok/View/utils/appbar_home.dart';
 import 'package:yuutebrok/View/widgets/custome_button.dart';
 import 'package:yuutebrok/View/widgets/custome_margine.dart';
 import 'package:yuutebrok/View/widgets/custome_spacer.dart';
+import 'package:yuutebrok/controller/auth/authentication.dart';
 
 class RegisterScreen extends StatelessWidget {
   TextEditingController _emailController = TextEditingController();
@@ -114,8 +116,18 @@ class RegisterScreen extends StatelessWidget {
                 ),
                 CustomeButton(
                   bgColor: white,
-                  onPressed: () {
-                    if (formKey.currentState!.validate()) {}
+                  onPressed: () async {
+                    if (formKey.currentState!.validate()) {
+                      final authController = AuthenticationController();
+                      final UserModel userData = UserModel(
+                          email: _emailController.text,
+                          password: _passwordController.text,
+                          name: _nameController.text,
+                          phone: _phoneNumberController.text);
+
+                      await authController.addUserData(context, userData);
+                      
+                    }
                   },
                   title: 'REGISTER',
                   textColor: black,

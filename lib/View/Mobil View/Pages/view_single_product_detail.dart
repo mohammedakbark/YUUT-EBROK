@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -60,13 +62,14 @@ class ViewSingleProductPage extends StatelessWidget {
               CustomeButton(
                 title: 'Add to cart',
                 bgColor: black,
-                onPressed: () {
-                  showSuccessMessage('Product added to cart');
+                onPressed: () async {
+                 
                   Provider.of<HiveDatabase>(context, listen: false).addToCart(
                       CartModel(
                           cartId: productModel.productId!,
                           productId: productModel.productId!,
                           quantity: 1.0));
+                
                 },
                 textColor: white,
               ),

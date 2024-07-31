@@ -14,9 +14,22 @@ import 'package:yuutebrok/View/Mobil%20View/Pages/viewproducts_page.dart';
 import 'package:yuutebrok/View/utils/loading_indicator.dart';
 import 'package:yuutebrok/View/utils/appbar_home.dart';
 import 'package:yuutebrok/View/utils/drawer.dart';
+import 'package:yuutebrok/controller/data/hive_database.dart';
 
-class MobileHomePage extends StatelessWidget {
+class MobileHomePage extends StatefulWidget {
   MobileHomePage({super.key});
+
+  @override
+  State<MobileHomePage> createState() => _MobileHomePageState();
+}
+
+class _MobileHomePageState extends State<MobileHomePage> {
+  @override
+  void initState() {
+    super.initState();
+    Provider.of<ControllerVideoPlayer>(context, listen: false)
+        .initializeController();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,22 +44,23 @@ class MobileHomePage extends StatelessWidget {
         child: Stack(
           fit: StackFit.passthrough,
           children: [
-            FutureBuilder(
-                future: cVP.initializeController(),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const Center(
-                      child: LoadingAnimatedLogo(),
-                    );
-                  }
-                  return FittedBox(
-                    fit: BoxFit.fill,
-                    child: SizedBox(
-                        height: height,
-                        width: width,
-                        child: VideoPlayer(cVP.videoPlayerController)),
-                  );
-                }),
+            // FutureBuilder(
+            //     future:
+            //     builder: (context, snapshot) {
+            //       if (snapshot.connectionState == ConnectionState.waiting) {
+            //         return const Center(
+            //           child: LoadingAnimatedLogo(),
+            //         );
+            //       }
+            //       return
+            FittedBox(
+              fit: BoxFit.fill,
+              child: SizedBox(
+                  height: height,
+                  width: width,
+                  child: VideoPlayer(cVP.videoPlayerController)),
+            ),
+            // }),
             // Image.asset("assets/logo.png"),
             Padding(
               padding: const EdgeInsets.only(bottom: 30),
@@ -62,9 +76,10 @@ class MobileHomePage extends StatelessWidget {
                               color: white,
                             )),
                         onPressed: () {
-                          Navigator.of(context).pushAndRemoveUntil(
-                              createRoute(const ProductViewPageMobile()),
-                              (route) => false);
+                          // cVP.disposeController();
+                          Navigator.of(context)
+                              .push(createRoute(const ProductViewPageMobile()));
+
                           // showLoadingIndiactor(context);
                         },
                         child: Text(
