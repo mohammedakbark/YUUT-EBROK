@@ -1,20 +1,13 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:video_player/video_player.dart';
 import 'package:yuutebrok/Const/colors.dart';
 import 'package:yuutebrok/Const/const.dart';
-import 'package:yuutebrok/Const/media.dart';
 import 'package:yuutebrok/Const/style.dart';
 import 'package:yuutebrok/controller/controller.dart';
-import 'package:yuutebrok/View/Mobil%20View/Pages/viewproducts_page.dart';
-import 'package:yuutebrok/View/utils/loading_indicator.dart';
-import 'package:yuutebrok/View/utils/appbar_home.dart';
-import 'package:yuutebrok/View/utils/drawer.dart';
-import 'package:yuutebrok/controller/data/hive_database.dart';
+import 'package:yuutebrok/View/mobile/screens/home/viewproducts_page.dart';
+import 'package:yuutebrok/utils/appbar_home.dart';
+import 'package:yuutebrok/utils/drawer.dart';
 
 class MobileHomePage extends StatefulWidget {
   MobileHomePage({super.key});
@@ -27,15 +20,14 @@ class _MobileHomePageState extends State<MobileHomePage> {
   @override
   void initState() {
     super.initState();
-    Provider.of<ControllerVideoPlayer>(context, listen: false)
-        .initializeController();
+    Provider.of<Controller>(context, listen: false).initializeController();
   }
 
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
-    final cVP = Provider.of<ControllerVideoPlayer>(context, listen: false);
+    final cVP = Provider.of<Controller>(context, listen: false);
     return Scaffold(
       appBar: homeAppBar(context),
       drawer: myDrawer,

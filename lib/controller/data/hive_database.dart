@@ -77,6 +77,12 @@ class HiveDatabase with ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> clearCartItems() async {
+    final cartBox = await Hive.openBox<CartModel>(ConstString.cartDatabase);
+    cartBox.clear();
+    log('Cart Clear');
+  }
+
   Future<void> editQuantity(key, bool isAdd) async {
     final cartBox = await Hive.openBox<CartModel>(ConstString.cartDatabase);
     var updatingModel = cartBox.get(key);

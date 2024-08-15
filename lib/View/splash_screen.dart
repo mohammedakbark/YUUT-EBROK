@@ -1,7 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:yuutebrok/Const/media.dart';
-import 'package:yuutebrok/View/Mobil%20View/Pages/home_page.dart';
 import 'package:yuutebrok/Const/const.dart';
+import 'package:yuutebrok/View/mobile/screens/home/home_page.dart';
+import 'package:yuutebrok/controller/auth/authentication.dart';
 
 class SpalshScreen extends StatefulWidget {
   const SpalshScreen({super.key});
@@ -31,8 +34,15 @@ class _SpalshScreenState extends State<SpalshScreen>
   @override
   Widget build(BuildContext context) {
     Future.delayed(const Duration(seconds: 4)).then((value) {
+      final authController =
+          Provider.of<AuthenticationController>(context, listen: false);
+      final auth = FirebaseAuth.instance.currentUser;
+      if (auth != null) {
+        authController.getUserData(context);
+      }
+
       Navigator.of(context)
-          .pushAndRemoveUntil(createRoute(   MobileHomePage()), (route) => false);
+          .pushAndRemoveUntil(createRoute(MobileHomePage()), (route) => false);
     });
     return Scaffold(
       body: Center(

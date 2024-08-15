@@ -4,7 +4,7 @@ import 'package:yuutebrok/Const/colors.dart';
 import 'package:yuutebrok/Const/const.dart';
 import 'package:yuutebrok/Const/media.dart';
 import 'package:yuutebrok/Const/style.dart';
-import 'package:yuutebrok/View/Mobil%20View/Pages/cart_page.dart';
+import 'package:yuutebrok/View/mobile/screens/check%20out/cart_page.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:yuutebrok/controller/data/hive_database.dart';
 

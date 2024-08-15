@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:yuutebrok/Const/colors.dart';
 import 'package:yuutebrok/Const/style.dart';
 
-cutomeTextField(
+Widget cutomeTextField(
   String hintText,
   TextEditingController? controller,
   String? Function(String?)? validator, {

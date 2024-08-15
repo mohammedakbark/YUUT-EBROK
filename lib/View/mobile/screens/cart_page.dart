@@ -12,10 +12,10 @@ import 'package:yuutebrok/Const/media.dart';
 import 'package:yuutebrok/Const/style.dart';
 import 'package:yuutebrok/Model/cart_model.dart';
 import 'package:yuutebrok/Model/product_model.dart';
-import 'package:yuutebrok/View/Mobil%20View/Pages/auth/login_screen.dart';
-import 'package:yuutebrok/View/Mobil%20View/Pages/checkout_page.dart';
-import 'package:yuutebrok/View/utils/appbar_home.dart';
-import 'package:yuutebrok/View/utils/loading_indicator.dart';
+import 'package:yuutebrok/View/mobile/screens/auth/login_screen.dart';
+import 'package:yuutebrok/View/mobile/screens/check%20out/add_address_page.dart';
+import 'package:yuutebrok/utils/appbar_home.dart';
+import 'package:yuutebrok/utils/loading_indicator.dart';
 import 'package:yuutebrok/View/widgets/app_bottom.dart';
 import 'package:yuutebrok/View/widgets/custome_button.dart';
 import 'package:yuutebrok/View/widgets/custome_margine.dart';
@@ -29,7 +29,7 @@ class CartPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: emptyAppBar(),
+        appBar: emptyAppBar(context),
         body: CustomMargin(
           child: Consumer<HiveDatabase>(builder: (context, hiveController, _) {
             return FutureBuilder(
@@ -234,10 +234,10 @@ class CartPage extends StatelessWidget {
                                       if (AuthenticationController()
                                           .checkUserAuthenticationStatus()) {
                                         Navigator.of(context)
-                                            .push(createRoute(CheckoutPage()));
+                                            .push(createRoute(AddAdreesPage()));
                                       } else {
                                         Navigator.of(context)
-                                            .push(createRoute(CartPage()));
+                                            .push(createRoute(LoginScreen()));
                                       }
                                     },
                                     title: 'CONTINUE',

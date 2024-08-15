@@ -1,9 +1,5 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:yuutebrok/Const/colors.dart';
-import 'package:yuutebrok/Const/const.dart';
 import 'package:yuutebrok/Const/media.dart';
 import 'package:yuutebrok/Const/style.dart';
 import 'package:yuutebrok/View/widgets/custome_spacer.dart';
@@ -15,35 +11,32 @@ class AppBottom extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const Divider(),
-        logoText,
         CusstomeSpacer(
           size: .01,
         ),
-        Container(
-          padding: const EdgeInsets.symmetric(vertical: 10),
-          width: w(context),
-          decoration: BoxDecoration(color: white),
-          child: SizedBox(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                _customeTile(context, instagram, 'Instagram', () {}),
-                CusstomeSpacer(
-                  size: .01,
-                ),
-                _customeTile(context, phone, 'Contact us', () {}),
-                CusstomeSpacer(
-                  size: .01,
-                ),
-                _customeTile(context, email, 'Email          ', () {}),
-              ],
+        Row(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Spacer(
+              flex: 3,
             ),
-          ),
+            _customeTile(context, instagram, 'Instagram', () {}),
+            const Spacer(),
+            _customeTile(context, phone, 'Contact us', () {}),
+            const Spacer(),
+            _customeTile(context, email, 'Email          ', () {}),
+            const Spacer(
+              flex: 3,
+            ),
+          ],
         ),
-        //privacy policy | privacy policy | privacy policy
         CusstomeSpacer(
-          size: .01,
+          size: .05,
+        ),
+        _contactUs('Contact Us', ''),
+        CusstomeSpacer(
+          size: .05,
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -80,26 +73,29 @@ class AppBottom extends StatelessWidget {
       context, String image, String name, void Function()? onTap) {
     return InkWell(
       onTap: onTap,
-      child: Row(
-        children: [
-          const Spacer(),
-          Image.asset(
-            image,
-            scale: 30,
-          ),
-          const SizedBox(
-            width: 10,
-          ),
-          SizedBox(
-            // width: w(context) * .3,
-            child: Text(
-              name,
-              style: appTextstyle(color: black),
-            ),
-          ),
-          const Spacer()
-        ],
+      child: Image.asset(
+        image,
+        color: white,
+        scale: 30,
       ),
+    );
+  }
+
+  Widget _contactUs(String head, String content) {
+    return Column(
+      children: [
+        Text(
+          head,
+          style: appTextstyle(size: 20, fontWeight: FontWeight.bold),
+        ),
+        CusstomeSpacer(
+          size: .02,
+        ),
+        Text(
+          content,
+          style: appTextstyle(),
+        )
+      ],
     );
   }
 }

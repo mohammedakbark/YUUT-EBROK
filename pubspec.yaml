@@ -47,6 +47,7 @@ dependencies:
   hive_flutter: ^1.1.0
   fluttertoast: ^8.2.6
   badges: ^3.1.2
+  razorpay_web: ^1.4.2
 
 dev_dependencies:
   flutter_test:

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:yuutebrok/Const/colors.dart';
 import 'package:yuutebrok/Const/const.dart';
 import 'package:yuutebrok/Model/user_model.dart';
 
-import 'package:yuutebrok/View/Mobil%20View/Pages/auth/widget/custom_textfield.dart';
-import 'package:yuutebrok/View/utils/appbar_home.dart';
+import 'package:yuutebrok/View/widgets/custom_textfield.dart';
+import 'package:yuutebrok/utils/appbar_home.dart';
 import 'package:yuutebrok/View/widgets/custome_button.dart';
 import 'package:yuutebrok/View/widgets/custome_margine.dart';
 import 'package:yuutebrok/View/widgets/custome_spacer.dart';
@@ -23,7 +24,7 @@ class RegisterScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: emptyAppBar(),
+      appBar: emptyAppBar(context),
       body: CustomMargin(
         child: Form(
           key: formKey,
@@ -118,7 +119,7 @@ class RegisterScreen extends StatelessWidget {
                   bgColor: white,
                   onPressed: () async {
                     if (formKey.currentState!.validate()) {
-                      final authController = AuthenticationController();
+                      final authController = Provider.of<AuthenticationController>(context,listen: false);
                       final UserModel userData = UserModel(
                           email: _emailController.text,
                           password: _passwordController.text,

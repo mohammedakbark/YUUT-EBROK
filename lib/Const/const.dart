@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:yuutebrok/Const/colors.dart';
 
-  final RegExp emailRegex = RegExp(
-    r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$',
-  );
-    final RegExp passwordRegex = RegExp(
-    r'^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$',
-  );
+final RegExp emailRegex = RegExp(
+  r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$',
+);
+final RegExp passwordRegex = RegExp(
+  r'^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$',
+);
 var logoText = Text(
   "YUUT EBROK",
   style: GoogleFonts.nanumMyeongjo(
@@ -33,5 +33,16 @@ double h(context) {
 
 double w(context) {
   return MediaQuery.of(context).size.width;
+}
+
+Widget backButton(BuildContext context) {
+  return IconButton(
+      onPressed: () {
+        Navigator.of(context).pop();
+      },
+      icon: Icon(
+        Icons.arrow_back_ios,
+        color: white,
+      ));
 }
 //anekDevanagari
