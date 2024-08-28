@@ -8,7 +8,7 @@ class CartModel {
   @HiveField(1)
   String productId;
   @HiveField(2)
-  double quantity;
+  int quantity;
    @HiveField(3)
   String size;
 

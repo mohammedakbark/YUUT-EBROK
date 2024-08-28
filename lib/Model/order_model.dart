@@ -1,7 +1,7 @@
 import 'package:firebase_cloud_firestore/firebase_cloud_firestore.dart';
+
 import 'package:yuutebrok/Model/address_model.dart';
 import 'package:yuutebrok/Model/cart_model.dart';
-
 
 class OrderModel {
   String uid;
@@ -62,9 +62,9 @@ class SuccessRespose {
       };
 
   factory SuccessRespose.fromJson(Map<String, dynamic> json) => SuccessRespose(
-      rezorpaySignature: json['rezorpaySignature'],
-      rezorpayOrderId: json['rezorpayOrderId'],
-      rezorpayPayementId: json['rezorpayPayementId']);
+      rezorpaySignature: json['rezorpaySignature']??'',
+      rezorpayOrderId: json['rezorpayOrderId']??'',
+      rezorpayPayementId: json['rezorpayPayementId']??'');
 }
 
 // razorpay_signature: null, razorpay_order_id: null, razorpay_payment_id: pay_OhYZmsZgDapvfG

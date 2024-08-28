@@ -12,5 +12,28 @@
         "destination": "/index.html"
       }
     ]
+  },
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "yuut-ebrok",
+          "appId": "1:138841801988:android:d51687ee8b1f4148bcbc51",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "yuut-ebrok",
+          "configurations": {
+            "android": "1:138841801988:android:d51687ee8b1f4148bcbc51",
+            "ios": "1:138841801988:ios:a4859f0b64da8dddbcbc51",
+            "macos": "1:138841801988:ios:a4859f0b64da8dddbcbc51",
+            "web": "1:138841801988:web:d880cae1e4c3ccd1bcbc51",
+            "windows": "1:138841801988:web:af06963cabe580fcbcbc51"
+          }
+        }
+      }
+    }
   }
 }

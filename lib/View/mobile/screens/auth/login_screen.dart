@@ -6,6 +6,7 @@ import 'package:yuutebrok/Const/const.dart';
 import 'package:yuutebrok/Const/media.dart';
 import 'package:yuutebrok/Const/style.dart';
 import 'package:yuutebrok/View/mobile/screens/auth/register_page.dart';
+import 'package:yuutebrok/View/mobile/screens/check%20out/cart_page.dart';
 import 'package:yuutebrok/View/widgets/custom_textfield.dart';
 import 'package:yuutebrok/utils/appbar_home.dart';
 import 'package:yuutebrok/View/widgets/custome_button.dart';
@@ -68,7 +69,10 @@ class LoginScreen extends StatelessWidget {
                                           final authController = Provider.of<AuthenticationController>(context,listen: false);
 
                  await   authController.loginUser(context,
-                        _emailController.text, _passwordController.text);
+                        _emailController.text, _passwordController.text).then((v){
+                            Navigator.of(context)
+                            .pushReplacement(createRoute(const CartPage()));
+                        });
                       
                   }
                 },

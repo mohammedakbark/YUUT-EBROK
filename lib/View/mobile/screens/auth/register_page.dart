@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:yuutebrok/Const/colors.dart';
 import 'package:yuutebrok/Const/const.dart';
 import 'package:yuutebrok/Model/user_model.dart';
+import 'package:yuutebrok/View/mobile/screens/check%20out/cart_page.dart';
 
 import 'package:yuutebrok/View/widgets/custom_textfield.dart';
 import 'package:yuutebrok/utils/appbar_home.dart';
@@ -12,7 +13,7 @@ import 'package:yuutebrok/View/widgets/custome_spacer.dart';
 import 'package:yuutebrok/controller/auth/authentication.dart';
 
 class RegisterScreen extends StatelessWidget {
-  TextEditingController _emailController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
   TextEditingController _confirmPasswordController = TextEditingController();
   TextEditingController _nameController = TextEditingController();
@@ -119,15 +120,21 @@ class RegisterScreen extends StatelessWidget {
                   bgColor: white,
                   onPressed: () async {
                     if (formKey.currentState!.validate()) {
-                      final authController = Provider.of<AuthenticationController>(context,listen: false);
+                      final authController =
+                          Provider.of<AuthenticationController>(context,
+                              listen: false);
                       final UserModel userData = UserModel(
                           email: _emailController.text,
                           password: _passwordController.text,
                           name: _nameController.text,
                           phone: _phoneNumberController.text);
 
-                      await authController.addUserData(context, userData);
-                      
+                      await authController
+                          .addUserData(context, userData)
+                          .then((v) {
+                        Navigator.of(context)
+                            .pushReplacement(createRoute(const CartPage()));
+                      });
                     }
                   },
                   title: 'REGISTER',

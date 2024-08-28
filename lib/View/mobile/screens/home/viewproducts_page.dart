@@ -18,14 +18,25 @@ import 'package:yuutebrok/View/widgets/custome_margine.dart';
 import 'package:yuutebrok/View/widgets/custome_spacer.dart';
 import 'package:yuutebrok/controller/data/database.dart';
 
-class ProductViewPageMobile extends StatelessWidget {
+class ProductViewPageMobile extends StatefulWidget {
   const ProductViewPageMobile({super.key});
 
+  @override
+  State<ProductViewPageMobile> createState() => _ProductViewPageMobileState();
+}
+
+class _ProductViewPageMobileState extends State<ProductViewPageMobile> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: commmonAppbar(context, false),
-      drawer: myDrawer,
+      drawer: myDrawer(context),
       body: CustomMargin(
           child: SingleChildScrollView(
         child: Column(

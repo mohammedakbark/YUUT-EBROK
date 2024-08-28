@@ -9,5 +9,14 @@ const logo = "assets/logo.png";
 const homeVideoasset = "assets/home.mp4";
 
 const instagram = 'assets/instagram.png';
+const twitter = 'assets/twitter.png';
+const facebook = 'assets/facebook.png';
+const pintrest = 'assets/pinterest.png';
+
+
+
+
+
+
 const phone = 'assets/phone.png';
 const email = 'assets/email.png';

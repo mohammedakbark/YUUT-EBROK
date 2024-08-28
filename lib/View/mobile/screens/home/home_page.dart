@@ -30,7 +30,7 @@ class _MobileHomePageState extends State<MobileHomePage> {
     final cVP = Provider.of<Controller>(context, listen: false);
     return Scaffold(
       appBar: homeAppBar(context),
-      drawer: myDrawer,
+      drawer: myDrawer(context),
       extendBodyBehindAppBar: true,
       body: Center(
         child: Stack(

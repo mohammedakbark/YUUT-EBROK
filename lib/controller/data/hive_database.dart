@@ -32,21 +32,25 @@ class HiveDatabase with ChangeNotifier {
   }
 
   Future<void> addToCart(CartModel cartModel) async {
-    final snapshot = await _checkTheItemAlreadyInCart(cartModel.cartId);
-    if (!snapshot) {
-      _cartList.clear();
+    if (await _getTheQuantityOfTheProduct(cartModel.productId) > 0) {
+      final snapshot = await _checkTheItemAlreadyInCart(cartModel.cartId);
+      if (!snapshot) {
+        _cartList.clear();
 
-      final cartBox = await Hive.openBox<CartModel>(ConstString.cartDatabase);
+        final cartBox = await Hive.openBox<CartModel>(ConstString.cartDatabase);
 
-      cartBox.put(cartModel.cartId, cartModel);
+        cartBox.put(cartModel.cartId, cartModel);
 
-      _cartLenght = 0;
-      _cartList.addAll(cartBox.values);
-      _cartLenght = _cartList.length;
-      showSuccessMessage('Product added to cart');
-      notifyListeners();
+        _cartLenght = 0;
+        _cartList.addAll(cartBox.values);
+        _cartLenght = _cartList.length;
+        showSuccessMessage('Product added to cart');
+        notifyListeners();
+      } else {
+        showWarningMessage('this item already in your cart !!');
+      }
     } else {
-      showWarningMessage('this item already in your cart !!');
+      showWarningMessage('this item is out of stock !!');
     }
   }
 
@@ -83,19 +87,29 @@ class HiveDatabase with ChangeNotifier {
     log('Cart Clear');
   }
 
-  Future<void> editQuantity(key, bool isAdd) async {
+  Future<int> _getTheQuantityOfTheProduct(String id) async {
+    final snapshot = await FirebaseData().getSelectedProductDetails(id);
+    if (snapshot.exists) {
+      return snapshot.data()!['quantity'];
+    } else {
+      return 0;
+    }
+  }
+
+  Future<void> editQuantity(key, bool isAdd, String proID) async {
     final cartBox = await Hive.openBox<CartModel>(ConstString.cartDatabase);
     var updatingModel = cartBox.get(key);
 
     if (isAdd) {
-      if (updatingModel!.quantity >= 1 && updatingModel.quantity < 10) {
+      if (updatingModel!.quantity >= 1 &&
+          updatingModel.quantity < await _getTheQuantityOfTheProduct(proID)) {
         updatingModel.quantity = _addQuantity(updatingModel.quantity);
 
         await cartBox.put(key, updatingModel);
         await _getTotalAmount();
         notifyListeners();
       } else {
-        showWarningMessage('limit upto 10');
+        showWarningMessage('limited stock is available');
       }
     } else {
       if (updatingModel!.quantity > 1) {
@@ -111,12 +125,12 @@ class HiveDatabase with ChangeNotifier {
     }
   }
 
-  _addQuantity(double value) {
+  _addQuantity(int value) {
     value++;
     return value;
   }
 
-  _lessQuantity(double value) {
+  _lessQuantity(int value) {
     value--;
     return value;
   }

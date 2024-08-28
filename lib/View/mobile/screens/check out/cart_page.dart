@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -14,6 +15,8 @@ import 'package:yuutebrok/Model/cart_model.dart';
 import 'package:yuutebrok/Model/product_model.dart';
 import 'package:yuutebrok/View/mobile/screens/auth/login_screen.dart';
 import 'package:yuutebrok/View/mobile/screens/check%20out/add_address_page.dart';
+import 'package:yuutebrok/controller/controller.dart';
+import 'package:yuutebrok/helper/snackbar.dart';
 import 'package:yuutebrok/utils/appbar_home.dart';
 import 'package:yuutebrok/utils/loading_indicator.dart';
 import 'package:yuutebrok/View/widgets/app_bottom.dart';
@@ -147,9 +150,12 @@ class CartPage extends StatelessWidget {
                                                                       () async {
                                                                     await hiveController.editQuantity(
                                                                         hiveController
-                                                                            .cartList[index]
+                                                                            .cartList[
+                                                                                index]
                                                                             .cartId,
-                                                                        false);
+                                                                        false,
+                                                                        product
+                                                                            .productId!);
                                                                   },
                                                                   icon: Icon(
                                                                     CupertinoIcons
@@ -174,9 +180,12 @@ class CartPage extends StatelessWidget {
                                                                       () async {
                                                                     await hiveController.editQuantity(
                                                                         hiveController
-                                                                            .cartList[index]
+                                                                            .cartList[
+                                                                                index]
                                                                             .cartId,
-                                                                        true);
+                                                                        true,
+                                                                        product
+                                                                            .productId!);
                                                                   },
                                                                   icon: Icon(
                                                                     size: 12,
@@ -230,11 +239,21 @@ class CartPage extends StatelessWidget {
                                   ),
                                   CustomeButton(
                                     bgColor: white,
-                                    onPressed: () {
+                                    onPressed: ()async {
                                       if (AuthenticationController()
                                           .checkUserAuthenticationStatus()) {
-                                        Navigator.of(context)
-                                            .push(createRoute(AddAdreesPage()));
+                                        if (await AuthenticationController()
+                                            .chckTheEmailIsVerified()) {
+                                          Navigator.of(context).push(
+                                              createRoute(AddAdreesPage()));
+                                        } else {
+                                          FirebaseAuth.instance.currentUser!
+                                              .sendEmailVerification();
+                                          showErrorMessage(
+                                              'You email is not verified !');
+                                          showSuccessMessage(
+                                              'verification mail send to ${FirebaseAuth.instance.currentUser!.email}');
+                                        }
                                       } else {
                                         Navigator.of(context)
                                             .push(createRoute(LoginScreen()));
@@ -245,7 +264,7 @@ class CartPage extends StatelessWidget {
                                   ),
                                   // Expanded(child: SizedBox()),
                                   // Spacer(),
-                                  const AppBottom()
+                                   AppBottom()
                                 ],
                               )
                             ],

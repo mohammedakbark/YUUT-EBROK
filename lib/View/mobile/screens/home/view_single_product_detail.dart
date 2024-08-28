@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -122,7 +123,7 @@ class ViewSingleProductPage extends StatelessWidget {
                                     .selectedSize!,
                             cartId: productModel.productId!,
                             productId: productModel.productId!,
-                            quantity: 1.0));
+                            quantity: 1));
                   } else {
                     showErrorMessage('Select the size !!');
                   }
@@ -135,25 +136,35 @@ class ViewSingleProductPage extends StatelessWidget {
               CustomeButton(
                 title: 'Buy it now',
                 bgColor: white,
-                onPressed: () {
+                onPressed: () async {
                   if (AuthenticationController()
                       .checkUserAuthenticationStatus()) {
-                    if (Provider.of<Controller>(context, listen: false)
-                            .selectedSize !=
-                        null) {
-                      Provider.of<HiveDatabase>(context, listen: false)
-                          .addToCart(CartModel(
-                              size: Provider.of<Controller>(context,
-                                      listen: false)
-                                  .selectedSize!,
-                              cartId: productModel.productId!,
-                              productId: productModel.productId!,
-                              quantity: 1.0))
-                          .then((value) {
-                        Navigator.of(context).push(createRoute(CartPage()));
-                      });
+                    if (await AuthenticationController()
+                        .chckTheEmailIsVerified()) {
+                      if (Provider.of<Controller>(context, listen: false)
+                              .selectedSize !=
+                          null) {
+                        Provider.of<HiveDatabase>(context, listen: false)
+                            .addToCart(CartModel(
+                                size: Provider.of<Controller>(context,
+                                        listen: false)
+                                    .selectedSize!,
+                                cartId: productModel.productId!,
+                                productId: productModel.productId!,
+                                quantity: 1))
+                            .then((value) {
+                          Navigator.of(context)
+                              .push(createRoute(const CartPage()));
+                        });
+                      } else {
+                        showErrorMessage('Select the size !!');
+                      }
                     } else {
-                      showErrorMessage('Select the size !!');
+                      FirebaseAuth.instance.currentUser!
+                          .sendEmailVerification();
+                      showErrorMessage('You email is not verified !');
+                      showSuccessMessage(
+                          'verification mail send to ${FirebaseAuth.instance.currentUser!.email}');
                     }
                   } else {
                     Navigator.of(context).push(createRoute(LoginScreen()));

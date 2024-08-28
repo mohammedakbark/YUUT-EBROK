@@ -1,5 +1,10 @@
 {
   "projects": {
-    "default": "yuutebrok-e03d0"
-  }
+    "default": "yuut-ebrok",
+    "hosting": "yuut-ebrok",
+    "staging": "yuut-ebrok"
+  },
+  "targets": {},
+  "etags": {},
+  "dataconnectEmulatorConfig": {}
 }

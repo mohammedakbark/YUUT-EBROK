@@ -5,7 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 import 'package:yuutebrok/Const/const_string.dart';
 import 'package:yuutebrok/Const/media.dart';
+import 'package:yuutebrok/Model/admin_info.dart';
 import 'package:yuutebrok/Model/product_model.dart';
+import 'package:yuutebrok/controller/data/database.dart';
 
 class Controller with ChangeNotifier {
   late VideoPlayerController videoPlayerController;
@@ -87,5 +89,35 @@ class Controller with ChangeNotifier {
             (element) => element.name.toLowerCase().contains(key.toLowerCase()))
         .toList();
     notifyListeners();
+  }
+
+  SocialMediaLinks? _socialMediaLinks;
+  SocialMediaLinks get socialMediaLinks => _socialMediaLinks!;
+
+  getThedminInfo() async {
+    final snapshot = FirebaseData().getTheInfoOfAdmin();
+
+    snapshot.listen((data) {
+      if (data.exists) {
+        _socialMediaLinks =
+            SocialMediaLinks.fromMap(data.data() as Map<String, dynamic>);
+      } else {
+        _socialMediaLinks = SocialMediaLinks(
+            instagram: '',
+            contactUs: '',
+            facebook: '',
+            twitter: '',
+            pintrest: '',
+            privacyPolicy: '',
+            shippingPolicy: '',
+            termsOfService: '');
+      }
+    });
+    print('get data of admin');
+    
+  }
+
+  Controller() {
+    getThedminInfo();
   }
 }

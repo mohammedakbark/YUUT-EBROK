@@ -25,13 +25,13 @@ homeAppBar(context) => AppBar(
         );
       }),
       title: logoText,
-      actions: [
-        IconButton(
-            onPressed: () {},
-            icon: ImageIcon(
-              searchImage,
-              color: white,
-            )),
+      actions:const [
+        // IconButton(
+        //     onPressed: () {},
+        //     icon: ImageIcon(
+        //       searchImage,
+        //       color: white,
+        //     )),
         const CartButton()
       ],
     );
